@@ -13,6 +13,7 @@
 		576175FE1AEF1169008B34B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 576175FD1AEF1169008B34B2 /* Images.xcassets */; };
 		576176011AEF1169008B34B2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 576175FF1AEF1169008B34B2 /* LaunchScreen.xib */; };
 		5761760D1AEF1169008B34B2 /* LemonadeStandAssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761760C1AEF1169008B34B2 /* LemonadeStandAssignmentTests.swift */; };
+		576176171AF0532B008B34B2 /* PlayerInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576176161AF0532B008B34B2 /* PlayerInventory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		576176061AEF1169008B34B2 /* LemonadeStandAssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LemonadeStandAssignmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5761760B1AEF1169008B34B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5761760C1AEF1169008B34B2 /* LemonadeStandAssignmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonadeStandAssignmentTests.swift; sourceTree = "<group>"; };
+		576176161AF0532B008B34B2 /* PlayerInventory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInventory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +79,9 @@
 		576175F31AEF1169008B34B2 /* LemonadeStandAssignment */ = {
 			isa = PBXGroup;
 			children = (
-				576175F61AEF1169008B34B2 /* AppDelegate.swift */,
 				576175F81AEF1169008B34B2 /* ViewController.swift */,
+				576176161AF0532B008B34B2 /* PlayerInventory.swift */,
 				576175FA1AEF1169008B34B2 /* Main.storyboard */,
-				576175FD1AEF1169008B34B2 /* Images.xcassets */,
-				576175FF1AEF1169008B34B2 /* LaunchScreen.xib */,
 				576175F41AEF1169008B34B2 /* Supporting Files */,
 			);
 			path = LemonadeStandAssignment;
@@ -90,6 +90,9 @@
 		576175F41AEF1169008B34B2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				576175FF1AEF1169008B34B2 /* LaunchScreen.xib */,
+				576175FD1AEF1169008B34B2 /* Images.xcassets */,
+				576175F61AEF1169008B34B2 /* AppDelegate.swift */,
 				576175F51AEF1169008B34B2 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -214,6 +217,7 @@
 			files = (
 				576175F91AEF1169008B34B2 /* ViewController.swift in Sources */,
 				576175F71AEF1169008B34B2 /* AppDelegate.swift in Sources */,
+				576176171AF0532B008B34B2 /* PlayerInventory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
