@@ -30,6 +30,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var lemonsToMixLabel: UILabel!
     @IBOutlet weak var IceCubesToMixLabel: UILabel!
     
+    // Weather Image
+    @IBOutlet weak var weatherImageView: UIImageView!
+    @IBOutlet weak var weatherLabel: UILabel!
+    
+    var randomNumberOfCustomers = 0 // Random Number Of Customers
+    
     var todaysRatio = 0.0
     var todaysRange = Customer.LemonadePreferenceRange.Default
     
@@ -53,6 +59,7 @@ class ViewController: UIViewController {
         
         // Update Purchase Supplies Labels
         self.lemonsPurchasedLabel.text = "\(self.playerInventory.lemonsPurchased)"
+        self.iceCubesPurchasedLabel.text = "\(self.playerInventory.iceCubesPurchased)"
         
         // Update Mix Your Lemonade Labels
         self.lemonsToMixLabel.text = "\(self.playerInventory.lemonsToBeMixed)"
@@ -76,7 +83,7 @@ class ViewController: UIViewController {
             
             updateView()
         }else{
-            showAlertView(header: "Insufficient Funds", message: "You need at least $2 to a lemon")
+            showAlertView(header: "Insufficient Funds", message: "You need at least $2 to a purchase a lemon")
         }
     }
     
@@ -84,10 +91,11 @@ class ViewController: UIViewController {
         
         // Player needs at least 1 Lemon
         
-        if self.playerInventory.lemons >= 1{
+        if self.playerInventory.lemons >= 1 && self.playerInventory.lemonsPurchased >= 1{
             
             // subtract lemons count
             self.playerInventory.lemons--
+            self.playerInventory.lemonsPurchased--
             
             // increase cash
             self.playerInventory.cash += 2
@@ -105,6 +113,7 @@ class ViewController: UIViewController {
         if self.playerInventory.cash >= 1{
             // add 1 ice cube
             self.playerInventory.iceCubes++
+            self.playerInventory.iceCubesPurchased++
             
             // decrease cash by $1
             self.playerInventory.cash--
@@ -119,40 +128,65 @@ class ViewController: UIViewController {
         
         // Player needs at least 1 Ice Cube
         
-        if self.playerInventory.iceCubes >= 1{
+        if self.playerInventory.iceCubes >= 1 && self.playerInventory.iceCubesPurchased >= 1{
             
             // subtract 1 ice cube
             self.playerInventory.iceCubes--
+            self.playerInventory.iceCubesPurchased--
             
             // increase cash by $1
             self.playerInventory.cash++
             
             updateView()
         }else{
-            showAlertView(header: "No More Ice Cubes", message: "You need to have at least 1 Ice Cube for a refund")
+            showAlertView(header: "No More Ice Cubes", message: "You need at least 1 Ice Cube to get a refund")
         }
     }
     
     // MARK: Mix Your Lemonade Actions
     
     @IBAction func addLemonsToBeMiixed(sender: UIButton) {
-        self.playerInventory.lemonsToBeMixed++
-        updateView()
+        if self.playerInventory.lemons >= 1{
+            self.playerInventory.lemonsToBeMixed++
+            self.playerInventory.lemons--
+            updateView()
+        }else{
+            // There are No Lemons left that you can Add to the Mix
+            showAlertView(header: "No Lemons Left", message: "There are No Lemons left that you can Add to the Mix")
+        }
     }
     
     @IBAction func subtractLemonsToBeMixed(sender: UIButton) {
-        self.playerInventory.lemonsToBeMixed--
-        updateView()
+        if self.playerInventory.lemonsToBeMixed >= 1{
+            self.playerInventory.lemonsToBeMixed--
+            self.playerInventory.lemons++
+            updateView()
+        }else{
+            // There are currently No Lemons in the Mix you can subtract
+            showAlertView(header: "No Lemons in the Mix", message: "There are currently No Lemons in the Mix you can subtract")
+        }
     }
     
     @IBAction func addIceCubesToBeMixed(sender: UIButton) {
-        self.playerInventory.iceCubesToBeMixed++
-        updateView()
+        if self.playerInventory.iceCubes >= 1{
+            self.playerInventory.iceCubesToBeMixed++
+            self.playerInventory.iceCubes--
+            updateView()
+        }else{
+            // There are No Ice Cubes left that you can Add to the Mix
+            showAlertView(header: "No Ice Cubes Left", message: "There are No Ice Cubes left that you can Add to the Mix")
+        }
     }
     
     @IBAction func subtractIceCubesToBeMixed(sender: UIButton) {
-        self.playerInventory.iceCubesToBeMixed--
-        updateView()
+        if self.playerInventory.iceCubesToBeMixed >= 1{
+            self.playerInventory.iceCubesToBeMixed--
+            self.playerInventory.iceCubes++
+            updateView()
+        }else{
+            // There are currently No Ice Cubes in the Mix you can subtract
+            showAlertView(header: "No Ice Cubes in the Mix", message: "There are currently No Ice Cubes in the Mix you can subtract")
+        }
     }
     
     // MARK: Start Day Action
@@ -163,19 +197,22 @@ class ViewController: UIViewController {
         if var ratio = lemonsOverIceCubesRatio(Double(self.playerInventory.lemonsToBeMixed), iceCubes: Double(self.playerInventory.iceCubesToBeMixed)){
             todaysRatio = ratio // set Today's Ratio
         }else{
-            println("Error")
+            println("Error in Calculating Today's Ratio")
         }
         
-        // Set Today's Lemonade Preference Range
+        // Set Today's Lemonade Preference Range using Today's Ratio
         setLemonadePreferenceRange()
         
-        // Create a Random Number of Customers (between 1 and 10) that will visit the Lemonade Stand Today
-        let randomNumberOfCustomers = Int(arc4random_uniform(UInt32(10))) // 0 - 9, increment by 1 to get customer count 1 - 10
+        // Creates a Random Number of Customers
+        createARandomNumberOfCustomers()
+        println("Today there are: \(self.randomNumberOfCustomers) customers\n")
         
-        println("Today there are: \(randomNumberOfCustomers + 1) customers\n")
+        // Base on Today's Weather the number of Customers showing up will be affected
+        todaysWeather()
+        println("As for Today's weather there are: \(self.randomNumberOfCustomers) customers\n")
         
         // Create 1 - 10 Customers with their preference and corresponding Lemonade favor range
-        for var index = 0; index < randomNumberOfCustomers + 1; index++ {
+        for var index = 0; index < self.randomNumberOfCustomers; index++ {
             var aRandomCustomerPreferenceNumber = Int(arc4random_uniform(UInt32(10)))
             var customer = Customer() // create a customer instance
             
@@ -199,6 +236,11 @@ class ViewController: UIViewController {
     
     // MARK: Helper Methods
     
+    func createARandomNumberOfCustomers(){
+        // Create a Random Number of Customers (between 1 and 10) that will visit the Lemonade Stand Today
+        self.randomNumberOfCustomers = Int(arc4random_uniform(UInt32(10))) + 1 // 0 - 9, increment by 1 to get customer count 1 - 10
+    }
+    
     // Get the Lemonade Ratio that will affect sales, (lemons over ice cubes), i.e. more acidic, equal parts, or less acidic lemonade.
     // lemons over ice cubes
     func lemonsOverIceCubesRatio(lemons: Double, iceCubes: Double) -> Double?{
@@ -211,7 +253,7 @@ class ViewController: UIViewController {
         return ratio
     }
     
-    // Set Today's Lemonade Preference Range
+    // Set Today's Lemonade Preference Range using Today's Ratio
     func setLemonadePreferenceRange() {
         if todaysRatio > 1 {
             // Acidic Lemonade
@@ -251,7 +293,27 @@ class ViewController: UIViewController {
         for customer in self.customers {
             println("Customer Preference is: \(customer.preference)")
             println("Custoemr Revenue is: \(customer.revenue)")
-            println("Today's Range is: \(self.todaysRange.rawValue)\n")
+            println("Today's Lemonade is: \(self.todaysRange.rawValue)\n")
+        }
+    }
+    
+    func todaysWeather(){
+        var randomWeatherNumber = Int(arc4random_uniform(UInt32(3)))
+        
+        switch randomWeatherNumber{
+        case 0: // cold weather, -3 customers
+            self.weatherImageView.image = UIImage(named: "cold-1")
+            self.weatherLabel.text = "Cold"
+            self.randomNumberOfCustomers -= 3
+        case 1: // mild weather, no customer change
+            self.weatherImageView.image = UIImage(named: "mild-1")
+            self.weatherLabel.text = "Mild"
+        case 2: // warm weather, +4 custoemers
+            self.weatherImageView.image = UIImage(named: "warm-1")
+            self.weatherLabel.text = "Warm"
+            self.randomNumberOfCustomers += 4
+        default:
+            println("Error in Weather Data")
         }
     }
     
