@@ -14,6 +14,7 @@
 		576176011AEF1169008B34B2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 576175FF1AEF1169008B34B2 /* LaunchScreen.xib */; };
 		5761760D1AEF1169008B34B2 /* LemonadeStandAssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761760C1AEF1169008B34B2 /* LemonadeStandAssignmentTests.swift */; };
 		576176171AF0532B008B34B2 /* PlayerInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576176161AF0532B008B34B2 /* PlayerInventory.swift */; };
+		576176191AF43931008B34B2 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576176181AF43931008B34B2 /* Customer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		5761760B1AEF1169008B34B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5761760C1AEF1169008B34B2 /* LemonadeStandAssignmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonadeStandAssignmentTests.swift; sourceTree = "<group>"; };
 		576176161AF0532B008B34B2 /* PlayerInventory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInventory.swift; sourceTree = "<group>"; };
+		576176181AF43931008B34B2 /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			children = (
 				576175F81AEF1169008B34B2 /* ViewController.swift */,
 				576176161AF0532B008B34B2 /* PlayerInventory.swift */,
+				576176181AF43931008B34B2 /* Customer.swift */,
 				576175FA1AEF1169008B34B2 /* Main.storyboard */,
 				576175F41AEF1169008B34B2 /* Supporting Files */,
 			);
@@ -218,6 +221,7 @@
 				576175F91AEF1169008B34B2 /* ViewController.swift in Sources */,
 				576175F71AEF1169008B34B2 /* AppDelegate.swift in Sources */,
 				576176171AF0532B008B34B2 /* PlayerInventory.swift in Sources */,
+				576176191AF43931008B34B2 /* Customer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +415,7 @@
 				576176121AEF1169008B34B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		576176131AEF1169008B34B2 /* Build configuration list for PBXNativeTarget "LemonadeStandAssignmentTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +424,7 @@
 				576176151AEF1169008B34B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

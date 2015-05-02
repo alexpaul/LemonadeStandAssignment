@@ -9,7 +9,7 @@
 import Foundation
 
 struct PlayerInventory {
-    var cash = 10 // $10
+    var cash = 10           // $10 
     var lemons = 1
     var iceCubes = 1
     var lemonsPurchased = 0
