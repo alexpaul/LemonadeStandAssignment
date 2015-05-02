@@ -227,6 +227,7 @@ class ViewController: UIViewController {
         }
     }
     
+    // Query for Revenue 
     func queryForRevenuePaidByCustomer(customerRange: Customer.LemonadePreferenceRange, todaysRange: Customer.LemonadePreferenceRange) -> (Int, String) {
         var revenueInt: Int
         var revenueString: String
